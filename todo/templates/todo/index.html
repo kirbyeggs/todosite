@@ -1,17 +1,14 @@
-welcome {{username}}
-
+<center><font size = 45>welcome {{ username }}</font></center><br>
 {% if todo_list %}
 
 <table align = "center">
     <tr>
-      <th>Username</th>
       <th>Priority</th>
       <th>Date</th>
       <th>Description</th>
     </tr>
     {% for t in todo_list %}
     <tr>
-      <td>{{t.username}}</td>
       <td>{{t.priority}}</td>
       <td>{{t.date}}</td>
       <td>{{t.description}}</td>

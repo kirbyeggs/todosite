@@ -11,6 +11,7 @@ def index(request):
     template = loader.get_template('todo/index.html')
     context = RequestContext(request, {
         'todo_list':todo_list,
+        'username':username
     })
     return HttpResponse(template.render(context))
 
