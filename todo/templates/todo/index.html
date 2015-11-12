@@ -1,21 +1,17 @@
-<center><font size = 45>welcome {{username}}</font></center>
+{% load render_table from django_tables2 %}
+<!doctype html>
+<html>
 
-{% if todo_list %}
+  <head>
+      <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+    </head>
+    <body>
+      <center><font size = 45>welcome {{username}}</font></center>
 
-<table align = "center">
-    <tr>
-      <th>Priority</th>
-      <th>Date</th>
-      <th>Description</th>
-    </tr>
-    {% for t in todo_list %}
-    <tr>
-      <td>{{t.priority}}</td>
-      <td>{{t.date}}</td>
-      <td>{{t.description}}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-  no entries are listed
-{% endif %}
+      {% if todo_list %}
+        <center>{% render_table todo_list %}</center>
+      {% else %}
+        <center>no entries are listed</center>
+      {% endif %}
+    </body>
+</html>
