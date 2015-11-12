@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo',
+    'django_tables2'
 )
 
 MIDDLEWARE_CLASSES = (

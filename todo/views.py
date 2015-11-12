@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 
 from .models import To_do
-
+from .forms import Username
 # Create your views here.
 def index(request):
     username = request.GET['username']
@@ -16,5 +16,5 @@ def index(request):
     return HttpResponse(template.render(context))
 
 def splash(request):
-    template = loader.get_template('todo/splash.html')
-    return HttpResponse(template.render())
+    username = Username()
+    return render(request, 'todo/splash.html', {'username':username})
