@@ -13,5 +13,10 @@
       {% else %}
         <center>no entries are listed</center>
       {% endif %}
+      <form action = 'add' align = 'center' method = 'POST'>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="submit">
+      </form>
     </body>
 </html>
