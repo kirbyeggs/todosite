@@ -3,16 +3,12 @@
 <html>
 
   <head>
-      <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+      <link rel="stylesheet" href="/static/django_tables2/themes/paleblue/css/screen.css" />
   </head>
     <body>
       <center><font size = 45>welcome {{username}}</font></center>
 
-      {% if todo_list %}
-        <center>{% render_table todo_list %}</center>
-      {% else %}
-        <center>no entries are listed</center>
-      {% endif %}
+      <center>{% render_table table %}</center>
       <form action = 'add/' align = 'center' method = 'POST'>
         {% csrf_token %}
         {{ form }}

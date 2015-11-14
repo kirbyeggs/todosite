@@ -1,12 +1,14 @@
 import sys
 
 from django.shortcuts import render
+from django_tables2   import RequestConfig
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from datetime import datetime
 
 from .models import To_do
+from .tables import To_doTable
 from .forms import Username
 from .forms import AddTodo
 # Create your views here.
@@ -21,10 +23,9 @@ def index(request):
         request.session['user'] = username
     else:
         username = request.session['user']
-    todo_list = (To_do.objects.filter(username = request.session['user'])).order_by('priority')
-    template = loader.get_template('todo/index.html')
-
-
+    table = To_doTable(To_do.objects.filter(username = request.session['user']).order_by('priority'))
+    print table
+    RequestConfig(request, paginate={"per_page": 20}).configure(table)
     if request.method == 'POST':
         form = AddTodo(request.POST)
         if form.is_valid():
@@ -35,11 +36,11 @@ def index(request):
         form = AddTodo()
 
     context = RequestContext(request, {
-        'todo_list':todo_list,
+        'table':table,
         'username':username,
         'form':form,
     })
-    return HttpResponse(template.render(context))
+    return render(request, 'todo/index.html', context)
 
 def add(request):
     print request.session['user']
