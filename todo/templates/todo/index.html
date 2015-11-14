@@ -4,7 +4,7 @@
 
   <head>
       <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
-    </head>
+  </head>
     <body>
       <center><font size = 45>welcome {{username}}</font></center>
 
@@ -13,7 +13,7 @@
       {% else %}
         <center>no entries are listed</center>
       {% endif %}
-      <form action = 'add' align = 'center' method = 'POST'>
+      <form action = 'add/' align = 'center' method = 'POST'>
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="submit">
