@@ -7,3 +7,8 @@ class AddTodo(forms.ModelForm):
     class Meta:
         model = To_do
         fields = ['priority', 'description']
+
+class SearchTodo(forms.ModelForm):
+    class Meta:
+        model = To_do
+        fields = ['description']

@@ -11,6 +11,7 @@ from .models import To_do
 from .tables import To_doTable
 from .forms import Username
 from .forms import AddTodo
+from .forms import SearchTodo
 # Create your views here.
 
 def splash(request):
@@ -24,26 +25,27 @@ def index(request):
     else:
         username = request.session['user']
     table = To_doTable(To_do.objects.filter(username = request.session['user']).order_by('priority'))
-    print table
     RequestConfig(request, paginate={"per_page": 20}).configure(table)
+    search = SearchTodo()
+
     if request.method == 'POST':
-        form = AddTodo(request.POST)
-        if form.is_valid():
-            priority = form.cleaned_data['priority']
-            description = form.cleaned_data['description']
+        add = AddTodo(request.POST)
+        if add.is_valid():
+            priority = add.cleaned_data['priority']
+            description = add.cleaned_data['description']
             return HttpResponse(request)
     else:
-        form = AddTodo()
+        add = AddTodo()
 
     context = RequestContext(request, {
         'table':table,
         'username':username,
-        'form':form,
+        'add':add,
+        'search':search
     })
     return render(request, 'todo/index.html', context)
 
 def add(request):
-    print request.session['user']
     priority = request.POST['priority']
     description = request.POST['description']
     username = request.session['user']
@@ -55,3 +57,17 @@ def add(request):
     'date':date,
     'username':username
     })
+
+def remove(request):
+    if request.method == 'POST':
+        pks = request.POST.getlist('remove')
+        To_do.objects.filter(pk__in = pks).delete()
+        num = len(pks)
+    else:
+        pass
+    return render(request, 'todo/remove.html', {
+    'num':num,
+    })
+
+def search(request):
+    

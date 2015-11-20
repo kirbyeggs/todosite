@@ -1,18 +1,29 @@
 {% load render_table from django_tables2 %}
+{% load static from staticfiles %}
 <!doctype html>
 <html>
 
   <head>
-      <link rel="stylesheet" href="/static/django_tables2/themes/paleblue/css/screen.css" />
+      <link rel="stylesheet" href='{% static "django_tables2/themes/paleblue/css/screen.css" %}' />
   </head>
     <body>
-      <center><font size = 45>welcome {{username}}</font></center>
-
-      <center>{% render_table table %}</center>
+      <center><font size = 60> Welcome {{username}}</font></center>
+      <br>
+      <form action = 'search/' align = 'center' method = 'GET'>
+        {{search}}
+        <input type="submit" value="Search">
+      </form>
+      <br>
+      <form action = 'remove/' align = 'center' method = 'POST'>
+        {% csrf_token %}
+        <center>{% render_table table %}</center>
+        <input type="submit" value="Remove Selected">
+      </form>
+      <br>
       <form action = 'add/' align = 'center' method = 'POST'>
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="submit">
+        {{ add }}
+        <input type="submit" value="Add Entry">
       </form>
     </body>
 </html>
