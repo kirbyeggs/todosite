@@ -1,0 +1,30 @@
+{% load render_table from django_tables2 %}
+{% load static from staticfiles %}
+<!doctype html>
+<html>
+
+  <head>
+      <link rel="stylesheet" href='{% static "django_tables2/themes/paleblue/css/screen.css" %}' />
+  </head>
+    <body>
+      <center><font size = 60> Welcome {{username}}</font></center>
+      <br>
+      <center>You have searched for "{{entry}}".</center>
+      <br>
+      <form action = 'search/' align = 'center' method = 'GET'>
+        {{search}}
+        <input type="submit" value="New Search">
+      </form>
+      <br>
+      <form action = 'remove/' align = 'center' method = 'POST'>
+        {% csrf_token %}
+        <center>{% render_table table %}</center>
+        <input type="submit" value="Remove Selected">
+      </form>
+      <br>
+      <form action = 'index/' align = 'center'>
+
+      <input type="submit" value="Back">
+      </form>
+    </body>
+</html>

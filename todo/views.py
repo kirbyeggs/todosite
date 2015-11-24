@@ -70,4 +70,14 @@ def remove(request):
     })
 
 def search(request):
-    
+    entry = request.GET['description']
+    search = SearchTodo()
+    username = request.session['user']
+    table = To_doTable(To_do.objects.filter(username =  request.session['user'], description__contains = entry))
+    RequestConfig(request, paginate={"per_page": 20}).configure(table)
+    return render(request, 'todo/search.html', {
+    'table':table,
+    'username':username,
+    'search':search,
+    'entry':entry,
+    })
