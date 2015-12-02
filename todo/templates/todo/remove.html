@@ -1,5 +1,7 @@
-
-
+{% load static from staticfiles %}
+<head>
+  <link rel='stylesheet' href='{% static "css/style.css" %}' />
+</head>
 {% if num == 1 %}
   <center> {{num}} object has been removed</center>
 {% else %}

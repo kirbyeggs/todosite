@@ -1,0 +1,8 @@
+{% load static from staticfiles %}
+<head>
+  <link rel='stylesheet' href='{% static "css/style.css" %}' />
+</head>
+<center> entry "{{description}}"" has been added at priority {{priority}} for user {{username}} at {{date}}. </center>
+<form action = "index" align = "center">
+<input type="submit" value="submit">
+</form>
